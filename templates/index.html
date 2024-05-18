@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The News Hive</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-image: url('https://www.shutterstock.com/image-vector/black-abstract-background-design-modern-260nw-1929364490.jpg');
+            background-size: cover;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            height: 80px; /* Adjust height as needed */
+            font-size: 40px;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative;
+        }
+        h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 44px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: flex-start;
+            padding-left: 20px;
+        }
+        .transparent-button {
+            background-color: transparent;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            height: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .transparent-button:hover {
+            background-color: black;
+            color: white;
+        }
+        .news-bar {
+            background-color: #f0f0f0; /* Light gray background color */
+            color: black;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        .breaking-news-container {
+            display: flex;
+            align-items: center;
+        }
+        .breaking-news {
+            color: black;
+            font-weight: bold;
+            margin-right: 100px; /* Adjust margin as needed */
+            font-size: 16px
+        }
+        .local-news {
+            color: #333333; /* Dark gray color */
+            margin-right: auto; /* Pushes Local News to the right */
+            font-size: 16px
+        }
+        .date {
+            color: #666666; /* Dark gray color for the date */
+        }
+        .logo {
+            width: 40px; /* Adjust logo width */
+            height: auto;
+            margin-left: -10px; /* Adjust margin as needed */
+        }
+        .photo-container {
+            position: relative; /* Add position relative for nested container */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            padding: 20px; /* Adjust padding as needed */
+            margin-top: 20px;
+            align-items: flex-start; /* Align items at the start */
+        }
+        .photo1 {
+            width: 550px;
+            height: 480px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 20px;
+            background-image: url("{{photo1_image}}");
+            background-size: cover;
+            background-position: center center;
+        }
+
+        .photo2 {
+            width: 250px; /* Adjust photo width */
+            height: 480px; /* Adjust photo height */
+            border-radius: 5px; /* Add rounded corners */
+            overflow: hidden; /* Hide overflow */
+            margin-bottom: 20px; /* Adjust margin as needed */
+            background-image: url("{{photo2_image}}"); /* Add semicolon and url() for the background image */
+            background-size: cover;
+            background-position: center center;
+        }
+        .photo-container-vertical {
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px; /* Adjust margin as needed */
+        }
+        .photo3 {
+            width: 275px; /* Adjust photo width */
+            height: 230px; /* Adjust photo height */
+            border-radius: 5px; /* Add rounded corners */
+            overflow: hidden; /* Hide overflow */
+            margin-bottom: 20px; /* Adjust margin as needed */
+            margin-left: 20px; /* Adjust margin as needed */
+            background-image: url("{{photo3_image}}"); /* Add semicolon and url() for the background image */
+            background-size: cover;
+            background-position: center center;
+        }
+        .photo4 {
+            width: 275px; /* Adjust photo width */
+            height: 230px; /* Adjust photo height */
+            border-radius: 5px; /* Add rounded corners */
+            overflow: hidden; /* Hide overflow */
+            margin-bottom: 20px; /* Adjust margin as needed */
+            margin-left: 20px; /* Adjust margin as needed */
+            background-image: url("{{photo4_image}}");
+            background-size: cover;
+            background-position: center center;
+        }
+        .right-aligned-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column; /* Adjusted to column layout */
+            align-items: flex-start; /* Align items to the end */
+            padding: 20px; /* Adjust padding as needed */
+            margin-right: 40px;
+            height: 400px; /* Adjust height as needed */
+            overflow-y: auto; /* Enable vertical scrolling */
+}
+
+        .right-aligned-content {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 10px; /* Adjust margin as needed */
+            flex-wrap: wrap;
+        }
+        .right-aligned-content img {
+            width: 70px; /* Adjust width of the photos */
+            height: 70px; /* Adjust height of the photos */
+            border-radius: 5px; /* Add rounded corners */
+            margin-right: 10px; /* Adjust margin as needed */
+
+        }
+        .right-aligned-content p {
+            margin: 0;
+        }
+        .right-aligned-button {
+            display: flex;
+            align-items: flex-end;
+        }
+        .rounded-buttonL {
+            background-color: transparent;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            border-top-left-radius: 7px;
+            border-bottom-left-radius: 7px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .rounded-buttonR {
+            background-color: transparent;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            border-top-right-radius: 7px;
+            border-bottom-right-radius: 7px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .rounded-buttonL:hover,
+        .rounded-buttonR:hover {
+            background-color: black;
+            color: white;
+        }
+        .medium-gray-box {
+            background-color: #f0f0f0; /* Medium gray background color */
+            padding: 5px; /* Adjust padding as needed */
+            border-radius: 5px; /* Add rounded corners */
+            margin-bottom: 15px; /* Adjust margin between boxes */
+        }
+        .larger-text {
+            font-size: 60px; /* Adjust font size as needed */
+        }
+        /* Styles for search container */
+        .search-container {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+        .search-container input[type=text] {
+            padding: 10px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        .search-button {
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .search-button:hover {
+            background-color: white;
+            color: black;
+        }
+        /* Styles for dropdown */
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 120px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-icon {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: solid black;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            margin-left: 5px;
+        }
+        .text-container {
+            position: absolute;
+            bottom: 125px; /* Adjust position from bottom as needed */
+            left: 60px; /* Adjust position from left as needed */
+            z-index: 3; /* Ensure text appears above the image */
+            flex-wrap: wrap
+        }
+        .text-container1 {
+            position: absolute;
+            bottom: 125px; /* Adjust position from bottom as needed */
+            left: 600px; /* Adjust position from left as needed */
+            z-index: 3; /* Ensure text appears above the image */
+            flex-wrap: wrap
+        }
+        .text-container2 {
+            position: absolute;
+            bottom: 75px; /* Adjust position from bottom as needed */
+            left: 870px; /* Adjust position from left as needed */
+            z-index: 3; /* Ensure text appears above the image */
+            flex-wrap: wrap
+        }
+        .text-container3 {
+            position: absolute;
+            bottom: 300px; /* Adjust position from bottom as needed */
+            left: 870px; /* Adjust position from left as needed */
+            z-index: 3; /* Ensure text appears above the image */
+            flex-wrap: wrap
+        }
+        .story-title {
+            color: white;
+            font-size: 24px; /* Adjust font size as needed */
+            margin-bottom: 10px; /* Adjust spacing as needed */
+        }
+        .author-info {
+            display: flex;
+        }
+        .black-box {
+            background-color: black;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-right: 10px; /* Adjust spacing between boxes as needed */
+        }
+        .gray-box {
+            color: gray; /* Gray color for text */
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 10px; /* Adjust spacing between boxes as needed */
+        }
+        .author-name {
+            color: lightgray;
+            font-size: 14px; /* Adjust font size as needed */
+            margin: 0;
+            font-weight: bold;
+        }
+        .other-info {
+            font-size: 14px; /* Adjust font size as needed */
+            margin: 0;
+            font-weight: bold;
+        }
+        .medium-gray-box:hover,
+        .medium-gray-box:hover p,
+        .photo1:hover,
+        .photo2:hover,
+        .photo3:hover,
+        .photo4:hover {
+            transform: scale(1.1); /* Enlarge the element by 10% */
+            transition: transform 0.3s ease; /* Add smooth transition effect */
+        }
+        .date {
+            color: #666666; /* Dark gray color for the date */
+            font-size: 10px
+        }
+        .date2 {
+            color: #666666; /* Dark gray color for the date */
+            font-size: 15px
+        }
+        .date1 {
+            color: lightgray; /* Dark gray color for the date */
+            font-size: 15px
+        }
+        .photo1, .photo2, .photo3, .photo4 {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Increase blur radius and opacity */
+        }
+        .medium-gray-box, .photo-container {
+            background-color: #f5f5f5; /* Very light gray background color */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Increase blur radius and opacity */
+        }
+        .black-box {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Adjust shadow properties as needed */
+        }
+
+        /* Add shadow to the story title */
+        .story-title {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Adjust shadow properties as needed */
+        }
+                .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black with opacity */
+            backdrop-filter: blur(5px); /* Optional: Add blur effect */
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Wrap T N H in a span tag and apply the class to make it bigger -->
+        <h1><span class="larger-text">T</span>HE <span class="larger-text">N</span>EWS <span class="larger-text">H</span>IVE</h1>
+        <!-- Search container -->
+        <div class="search-container">
+            <input type="text" placeholder="Search...">
+            <button class="search-button">&#128269;</button>
+        </div>
+    </header>
+    <div class="button-container">
+        <button class="transparent-button">Home</button>
+        <button class="transparent-button">News</button>
+        <button class="transparent-button">World</button>
+        <button class="transparent-button">Business</button>
+        <button class="transparent-button">Politics</button>
+        <button class="transparent-button">Entertainment</button>
+        <!-- Dropdown -->
+        <div class="dropdown">
+            <button class="transparent-button">Sports<span class="dropdown-icon"></span></button>
+            <div class="dropdown-content">
+                <a href="#">Football</a>
+                <a href="#">Basketball</a>
+                <a href="#">Tennis</a>
+            </div>
+        </div>
+    </div>
+    <div class="news-bar">
+        <div class="breaking-news-container">
+            <img src="https://w7.pngwing.com/pngs/903/111/png-transparent-lightning-computer-icons-symbol-thunder-lightning-bolt-miscellaneous-angle-triangle.png" alt="Logo" class="logo">
+            <div class="breaking-news">BREAKING NEWS</div>
+        </div>
+        <div class="local-news">Locals coming back on streets again after</div>
+        <div class="date2">May 16, 2024</div>
+    </div>
+    <div class="photo-container">
+        <div class="photo1">
+            <div class="text-container">
+                <div class="author-info">
+                    <div class="black-box">
+                        <p class="author-name">featured</p>
+                    </div>
+                    <div class="black-box">
+                        <p class="other-info">{{photo1_type}}</p>
+                    </div>
+                </div>
+                <p class="story-title">{{photo1_headline}}</p>
+                <div class="date1">{{photo1_date}}</div>
+                <div class="date1">{{photo1_author}}</div>
+            </div>
+        </div>
+        <div class="photo2">
+            <div class="text-container1">
+                <div class="author-info">
+                    <div class="black-box">
+                        <p class="author-name">featured</p>
+                    </div>
+                    <div class="black-box">
+                        <p class="other-info">{{photo2_type}}</p>
+                    </div>
+                </div>
+                <p class="story-title">{{photo2_headline}}</p>
+                <div class="date1">{{photo2_date}}</div>
+                <div class="date1">{{photo2_author}}</div>
+            </div>
+        </div>
+        <div class="photo-container-vertical">
+            <div class="photo3">
+                <div class="text-container2">
+                <div class="author-info">
+                    <div class="black-box">
+                        <p class="author-name">featured</p>
+                    </div>
+                    <div class="black-box">
+                        <p class="other-info">{{photo3_type}}</p>
+                    </div>
+                </div>
+                <p class="story-title">{{photo3_headline}}</p>
+                <div class="date1">{{photo3_date}}</div>
+                <div class="date1">{{photo3_author}}</div>
+            </div>
+            </div>
+            <div class="photo4">
+                <div class="text-container3">
+                <div class="author-info">
+                    <div class="black-box">
+                        <p class="author-name">featured</p>
+                    </div>
+                    <div class="black-box">
+                        <p class="other-info">{{photo4_type}}</p>
+                    </div>
+                </div>
+                <p class="story-title">{{photo4_headline}}</p>
+                <div class="date1">{{photo4_date}}</div>
+                <div class="date1">{{photo4_author}}</div>
+            </div>
+            </div>
+        </div>
+        <div class="right-aligned-container">
+            <div class="right-aligned-button">
+                <button class="rounded-buttonL">Latest</button>
+                <button class="rounded-buttonR">Popular</button>
+            </div>
+            <div class="medium-gray-box"> <!-- Container for photo 5 and its text -->
+                <div class="right-aligned-content">
+                    <img src="{{photo5_image}}" alt="Right Aligned Photo 1">
+                    <p>{{photo5_headline}}</p>
+                </div>
+                <div class="date">{{photo5_date}}</div>
+            </div>
+            <div class="medium-gray-box"> <!-- Container for photo 6 and its text -->
+                <div class="right-aligned-content">
+                    <img src="{{photo6_image}}" alt="Right Aligned Photo 2">
+                    <p>{{photo6_headline}}</p>
+                </div>
+                <div class="date">{{photo6_date}}</div>
+            </div>
+            <div class="medium-gray-box"> <!-- Container for photo 7 and its text -->
+                <div class="right-aligned-content">
+                    <img src="{{photo7_image}}" alt="Right Aligned Photo 3">
+                    <p>{{photo7_headline}}</p>
+                </div>
+                <div class="date">{{photo7_date}}</div>
+            </div>
+            <div class="medium-gray-box"> <!-- Container for photo 8 and its text -->
+                <div class="right-aligned-content">
+                    <img src="{{photo8_image}}" alt="Right Aligned Photo 4">
+                    <p>{{photo8_headline}}</p>
+                </div>
+                <div class="date">{{photo8_date}}</div>
+            </div>
+            <div class="medium-gray-box"> <!-- Container for photo 8 and its text -->
+                <div class="right-aligned-content">
+                    <img src="{{photo9_image}}" alt="Right Aligned Photo 4">
+                    <p>{{photo9_headline}}</p>
+                </div>
+                <div class="date">{{photo9_date}}</div>
+            </div>
+            <div class="medium-gray-box"> <!-- Container for photo 8 and its text -->
+                <div class="right-aligned-content">
+                    <img src="{{photo10_image}}" alt="Right Aligned Photo 4">
+                    <p>{{photo10_headline}}</p>
+                </div>
+                <div class="date">{{photo10_date}}</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
